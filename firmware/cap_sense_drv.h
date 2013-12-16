@@ -4,16 +4,16 @@
 
 #define THRESH 1
 
-#define set_as_output(i) (DDRB |= (1 << i))
-#define set_as_input(i) (DDRB &= ~(1 << i))
+#define set_as_output(mask) (DDRB |= mask)
+#define set_as_input(mask) (DDRB &= ~mask)
 
-#define set_output_high(i) (PORTB |= (1 << i))
-#define set_output_low(i) (PORTB &= ~(1 << i))
+#define set_output_high(mask) (PORTB |= mask)
+#define set_output_low(mask) (PORTB &= ~mask)
 
-#define set_input_pullup(i) (PORTB |= (1 << i))
-#define clear_input_pullup(i) (PORTB &= ~(1 << i))
+#define set_input_pullup(mask) (PORTB |= mask)
+#define clear_input_pullup(mask) (PORTB &= ~mask)
 
-#define get_input(i) (PINB & (1 << i))
+#define get_input(mask) (PINB & mask)
 
 extern unsigned char cap_sense_open(uint8_t input);
 extern void cap_sense_close(void);

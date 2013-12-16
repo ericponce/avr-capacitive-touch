@@ -4,7 +4,7 @@ volatile uint8_t pin;
 
 unsigned char cap_sense_open(uint8_t input) {
 	pin = input;
-	set_as_input(pin);
+	set_as_input(1 << pin);
 	return 1;
 
 }
@@ -16,17 +16,19 @@ void cap_sense_close(void) {
 uint8_t cap_sense_read(void) {
 	uint8_t count = 0;
 
-	clear_input_pullup(pin);
-	set_as_output(pin);
-	_delay_ms(1);
-	set_as_input(pin);
+	uint8_t p = 1 << pin;
 
-	while (!get_input(pin)) {
+	clear_input_pullup(p);
+	set_as_output(p);
+	
+	set_as_input(p);
+
+	while (!get_input(p)) {
 		count++;
 	}
 
-	clear_input_pullup(pin);
-	set_as_output(pin);
+	clear_input_pullup(p);
+	set_as_output(p);
 
 	return count > THRESH;
 }
